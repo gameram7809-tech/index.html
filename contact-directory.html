@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แพทย์และเภสัชกร รพ.กองบิน ๔๑</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --olive: #4a5e3a;
+    --olive-light: #6b7f57;
+    --olive-dark: #2e3d22;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d8;
+    --brown: #5c4a2a;
+    --text-dark: #1a1a1a;
+    --text-mid: #3d3d3d;
+    --text-light: #6b6b6b;
+    --white: #ffffff;
+    --shadow: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive) 60%, var(--olive-light) 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-emblem {
+    width: 72px;
+    height: 72px;
+    background: rgba(201,168,76,0.2);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+
+  .header-text h1 {
+    font-family: 'Kanit', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    line-height: 1.3;
+  }
+
+  .header-text p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: rgba(201,168,76,0.25);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Search */
+  .search-section {
+    background: var(--white);
+    border-bottom: 1px solid rgba(74,94,58,0.1);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .search-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--olive-light);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  #searchInput {
+    width: 100%;
+    padding: 11px 14px 11px 42px;
+    border: 2px solid var(--cream-dark);
+    border-radius: 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    background: var(--cream);
+    color: var(--text-dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  #searchInput:focus {
+    border-color: var(--olive-light);
+    box-shadow: 0 0 0 3px rgba(107,127,87,0.15);
+    background: var(--white);
+  }
+
+  #searchInput::placeholder { color: var(--text-light); }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: none;
+    transition: color 0.2s;
+  }
+
+  .clear-btn:hover { color: var(--olive); }
+  .clear-btn.visible { display: block; }
+
+  .result-count {
+    font-size: 12px;
+    color: var(--text-light);
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* Main */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 24px 40px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, var(--olive) 0%, var(--olive-light) 100%);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header::before {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+  }
+
+  .section-icon { font-size: 18px; }
+
+  .section-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .section-count {
+    margin-left: auto;
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+
+  /* Card Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(74,94,58,0.08);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: rgba(107,127,87,0.3);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--olive-light), var(--gold));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .card-num {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 11px;
+    color: var(--cream-dark);
+    font-weight: 600;
+    font-family: 'Kanit', sans-serif;
+  }
+
+  .card-rank {
+    font-size: 11px;
+    color: var(--olive-light);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    background: rgba(107,127,87,0.08);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .card-name {
+    font-family: 'Kanit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--olive-dark);
+    line-height: 1.3;
+  }
+
+  .card-nickname {
+    font-size: 13px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card-nickname::before {
+    content: '•';
+    color: var(--gold);
+  }
+
+  .card-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+  }
+
+  .phone-icon {
+    font-size: 14px;
+    color: var(--olive);
+  }
+
+  .phone-link {
+    font-size: 14px;
+    color: var(--olive-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Kanit', sans-serif;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .phone-link:hover { color: var(--gold); }
+
+  .phone-link.multi { font-size: 12px; }
+
+  /* No result */
+  .no-result {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    display: none;
+  }
+
+  .no-result .icon { font-size: 48px; margin-bottom: 12px; }
+  .no-result p { font-size: 15px; }
+
+  /* Highlight */
+  .hl { background: rgba(201,168,76,0.35); border-radius: 3px; padding: 0 2px; }
+
+  /* Hidden */
+  .card.hidden { display: none; }
+  .section.hidden { display: none; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--text-light);
+    border-top: 1px solid var(--cream-dark);
+    margin-top: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; text-align: center; }
+    .badge-row { justify-content: center; }
+    .search-inner { padding: 12px 16px; }
+    .main { padding: 16px 16px 32px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .header-text h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-emblem">⚕️</div>
+    <div class="header-text">
+      <h1>แพทย์และเภสัชกร รพ.กองบิน ๔๑</h1>
+      <p>ทำเนียบบุคลากรทางการแพทย์ · ค้นหาได้ทันที</p>
+      <div class="badge-row">
+        <span class="badge">🏥 แพทย์</span>
+        <span class="badge">💊 เภสัชกร</span>
+        <span class="badge">📋 ข้าราชการ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="ค้นหาชื่อ ยศ ชื่อเล่น หรือเบอร์โทร..." autocomplete="off">
+    </div>
+    <button class="clear-btn" id="clearBtn" title="ล้างการค้นหา">✕</button>
+    <div class="result-count" id="resultCount"></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Section 1: แพทย์และเภสัชกร -->
+  <div class="section" id="section-doctors">
+    <div class="section-header">
+      <span class="section-icon">⚕️</span>
+      <span class="section-title">แพทย์และเภสัชกร</span>
+      <span class="section-count" id="count-doctors">8 คน</span>
+    </div>
+    <div class="card-grid" id="grid-doctors">
+
+      <div class="card" data-search="น.อ.ณัฐวุฒิ เอมหฤทัย อาจารย์ตาย 099-1414459">
+        <span class="card-num">#1</span>
+        <span class="card-rank">น.อ.</span>
+        <div class="card-name">ณัฐวุฒิ เอมหฤทัย</div>
+        <div class="card-nickname">อาจารย์ตาย</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0991414459" class="phone-link">099-1414459</a></div>
+      </div>
+
+      <div class="card" data-search="น.อ.จักพันธุ์ เมืองแมน อาจารย์ต่อ 097-157-0701 088-2528747">
+        <span class="card-num">#2</span>
+        <span class="card-rank">น.อ.</span>
+        <div class="card-name">จักพันธุ์ เมืองแมน</div>
+        <div class="card-nickname">อาจารย์ต่อ</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0971570701" class="phone-link multi">097-157-0701 / 088-2528747</a></div>
+      </div>
+
+      <div class="card" data-search="น.ต.หญิง ชุติสรา มหาพรวิน หมอซุ 089-4939016">
+        <span class="card-num">#3</span>
+        <span class="card-rank">น.ต.หญิง</span>
+        <div class="card-name">ชุติสรา มหาพรวิน</div>
+        <div class="card-nickname">หมอซุ</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0894939016" class="phone-link">089-4939016</a></div>
+      </div>
+
+      <div class="card" data-search="น.ต.หญิง อังคัวรา อินทรสมพันธ์ หมอแพรว 081-4020144">
+        <span class="card-num">#4</span>
+        <span class="card-rank">น.ต.หญิง</span>
+        <div class="card-name">อังคัวรา อินทรสมพันธ์</div>
+        <div class="card-nickname">หมอแพรว</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0814020144" class="phone-link">081-4020144</a></div>
+      </div>
+
+      <div class="card" data-search="ร.ท.หญิง พิมพ์ชนก วรริทย์รัตนกุล หมอได้ 094-1544159">
+        <span class="card-num">#5</span>
+        <span class="card-rank">ร.ท.หญิง</span>
+        <div class="card-name">พิมพ์ชนก วรริทย์รัตนกุล</div>
+        <div class="card-nickname">หมอได้</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0941544159" class="phone-link">094-1544159</a></div>
+      </div>
+
+      <div class="card" data-search="ร.ต.หญิง ปารีณา จันทรงสกุล หมออมุก 083-0258480">
+        <span class="card-num">#6</span>
+        <span class="card-rank">ร.ต.หญิง</span>
+        <div class="card-name">ปารีณา จันทรงสกุล</div>
+        <div class="card-nickname">หมออมุก</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0830258480" class="phone-link">083-0258480</a></div>
+      </div>
+
+      <div class="card" data-search="น.ท.หญิง อัคศัญญา ไชยปัญญา หมอญ่า 097-4422464">
+        <span class="card-num">#7</span>
+        <span class="card-rank">น.ท.หญิง</span>
+        <div class="card-name">อัคศัญญา ไชยปัญญา</div>
+        <div class="card-nickname">หมอญ่า</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0974422464" class="phone-link">097-4422464</a></div>
+      </div>
+
+      <div class="card" data-search="ร.อ.กรัณย์พัฒน์ หม้อกรอง หมอกังฟู 087-7899323">
+        <span class="card-num">#8</span>
+        <span class="card-rank">ร.อ.</span>
+        <div class="card-name">กรัณย์พัฒน์ หม้อกรอง</div>
+        <div class="card-nickname">หมอกังฟู</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0877899323" class="phone-link">087-7899323</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 2: ข้าราชการชั้นสัญญาบัตร -->
+  <div class="section" id="section-officer">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <span class="section-title">ข้าราชการชั้นสัญญาบัตร</span>
+      <span class="section-count" id="count-officer">7 คน</span>
+    </div>
+    <div class="card-grid" id="grid-officer">
+
+      <div class="card" data-search="น.ท.หญิง ภาวิตา นวลศิริ หัวหน้าเปิ้ล 092-4196532">
+        <span class="card-rank">น.ท.หญิง</span>
+        <div class="card-name">ภาวิตา นวลศิริ</div>
+        <div class="card-nickname">หัวหน้าเปิ้ล</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0924196532" class="phone-link">092-4196532</a></div>
+      </div>
+
+      <div class="card" data-search="น.ท.หญิง รัตนา สมยาราช หัวหน้าอ้อย 081-6663483">
+        <span class="card-rank">น.ท.หญิง</span>
+        <div class="card-name">รัตนา สมยาราช</div>
+        <div class="card-nickname">หัวหน้าอ้อย</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0816663483" class="phone-link">081-6663483</a></div>
+      </div>
+
+      <div class="card" data-search="น.ท.หญิง รัชภาพร คำจริง หัวหน้าคุ้กตา 064-2456523">
+        <span class="card-rank">น.ท.หญิง</span>
+        <div class="card-name">รัชภาพร คำจริง</div>
+        <div class="card-nickname">หัวหน้าคุ้กตา</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0642456523" class="phone-link">064-2456523</a></div>
+      </div>
+
+      <div class="card" data-search="น.ท.หญิง มัชฌิมา อุ่นโพธิ หัวหน้านุ้ย 088-2669645">
+        <span class="card-rank">น.ท.หญิง</span>
+        <div class="card-name">มัชฌิมา อุ่นโพธิ</div>
+        <div class="card-nickname">หัวหน้านุ้ย</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0882669645" class="phone-link">088-2669645</a></div>
+      </div>
+
+      <div class="card" data-search="น.ต.หญิง ขวัญหทัย ชัยมงคล หัวหน้าอิ๋ว 080-4346543">
+        <span class="card-rank">น.ต.หญิง</span>
+        <div class="card-name">ขวัญหทัย ชัยมงคล</div>
+        <div class="card-nickname">หัวหน้าอิ๋ว</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0804346543" class="phone-link">080-4346543</a></div>
+      </div>
+
+      <div class="card" data-search="ร.อ.หญิง กันยศัย ศรีจัย หัวหน้าเจน 064-9629856">
+        <span class="card-rank">ร.อ.หญิง</span>
+        <div class="card-name">กันยศัย ศรีจัย</div>
+        <div class="card-nickname">หัวหน้าเจน</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0649629856" class="phone-link">064-9629856</a></div>
+      </div>
+
+      <div class="card" data-search="ร.ท.จักรพงศ์ ปัญญา หมวดเอ็ม 065-4498915">
+        <span class="card-rank">ร.ท.</span>
+        <div class="card-name">จักรพงศ์ ปัญญา</div>
+        <div class="card-nickname">หมวดเอ็ม</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0654498915" class="phone-link">065-4498915</a></div>
+      </div>
+
+      <div class="card" data-search="ร.ต.ฐูปเจตน์ อวดครอง หมวดพล 064-5514240">
+        <span class="card-rank">ร.ต.</span>
+        <div class="card-name">ฐูปเจตน์ อวดครอง</div>
+        <div class="card-nickname">หมวดพล</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0645514240" class="phone-link">064-5514240</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 3: ข้าราชการชั้นประทวน -->
+  <div class="section" id="section-enlisted">
+    <div class="section-header">
+      <span class="section-icon">🎖️</span>
+      <span class="section-title">ข้าราชการชั้นประทวน</span>
+      <span class="section-count" id="count-enlisted">18 คน</span>
+    </div>
+    <div class="card-grid" id="grid-enlisted">
+
+      <div class="card" data-search="พ.อ.อ.(ช) ศักดิ์ชาย สิงห์ชุม จ่าศักดิ์ชาย 085-0658982">
+        <span class="card-num">#1</span>
+        <span class="card-rank">พ.อ.อ.(ช)</span>
+        <div class="card-name">ศักดิ์ชาย สิงห์ชุม</div>
+        <div class="card-nickname">จ่าศักดิ์ชาย</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0850658982" class="phone-link">085-0658982</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ.(พ) ทรงศักดิ์ น้องศิลา จ่าหนึ่ง 088-4052789">
+        <span class="card-num">#2</span>
+        <span class="card-rank">พ.อ.อ.(พ)</span>
+        <div class="card-name">ทรงศักดิ์ น้องศิลา</div>
+        <div class="card-nickname">จ่าหนึ่ง</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0884052789" class="phone-link">088-4052789</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ.(พ) ทิฆัมพร ชัยเพชร จ่าแชมป์ 085-1469047">
+        <span class="card-num">#3</span>
+        <span class="card-rank">พ.อ.อ.(พ)</span>
+        <div class="card-name">ทิฆัมพร ชัยเพชร</div>
+        <div class="card-nickname">จ่าแชมป์</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0851469047" class="phone-link">085-1469047</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ.(พ) ยุทธนา ณ ลำปาง จ่าอ็อด 0866213678">
+        <span class="card-num">#4</span>
+        <span class="card-rank">พ.อ.อ.(พ)</span>
+        <div class="card-name">ยุทธนา ณ ลำปาง</div>
+        <div class="card-nickname">จ่าอ็อด</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0866213678" class="phone-link">086-6213678</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ.(พ) ปิติพงศ์ ปิงสุแสน จ่าเอส 082-2426629">
+        <span class="card-num">#5</span>
+        <span class="card-rank">พ.อ.อ.(พ)</span>
+        <div class="card-name">ปิติพงศ์ ปิงสุแสน</div>
+        <div class="card-nickname">จ่าเอส</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0822426629" class="phone-link">082-2426629</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. พงษ์พันธ์ มาลา จ่าเด็ล 098-8922547">
+        <span class="card-num">#6</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">พงษ์พันธ์ มาลา</div>
+        <div class="card-nickname">จ่าเด็ล</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0988922547" class="phone-link">098-8922547</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. ดาราศักดิ์ คำมี จ่าเอ็ดตี้ 095-9049664">
+        <span class="card-num">#7</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">ดาราศักดิ์ คำมี</div>
+        <div class="card-nickname">จ่าเอ็ดตี้</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0959049664" class="phone-link">095-9049664</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. รัตนวัชร์ ยุทธพงษ์พิชญะ จ่าโก 097-9599494">
+        <span class="card-num">#8</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">รัตนวัชร์ ยุทธพงษ์พิชญะ</div>
+        <div class="card-nickname">จ่าโก</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0979599494" class="phone-link">097-9599494</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. วุฒิพงษ์ ทองประไพ จ่าวุฒิ 088-2530335">
+        <span class="card-num">#9</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">วุฒิพงษ์ ทองประไพ</div>
+        <div class="card-nickname">จ่าวุฒิ</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0882530335" class="phone-link">088-2530335</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. รามเศ พอสม จ่าอมย 062-4245973">
+        <span class="card-num">#10</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">รามเศ พอสม</div>
+        <div class="card-nickname">จ่าอมย</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0624245973" class="phone-link">062-4245973</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. ภานุพัฒน์ พานเหล็ก จ่าชัดเจน 088-5858747">
+        <span class="card-num">#11</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">ภานุพัฒน์ พานเหล็ก</div>
+        <div class="card-nickname">จ่าชัดเจน</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0885858747" class="phone-link">088-5858747</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.อ. คชลักษณ์ วิริยะ จ่าตั้ม 080-2036170">
+        <span class="card-num">#12</span>
+        <span class="card-rank">พ.อ.อ.</span>
+        <div class="card-name">คชลักษณ์ วิริยะ</div>
+        <div class="card-nickname">จ่าตั้ม</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0802036170" class="phone-link">080-2036170</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.ท.หญิง ชัชญา จ่าเบล 064-9969655">
+        <span class="card-num">#13</span>
+        <span class="card-rank">พ.อ.ท.หญิง</span>
+        <div class="card-name">ชัชญา</div>
+        <div class="card-nickname">จ่าเบล</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0649969655" class="phone-link">064-9969655</a></div>
+      </div>
+
+      <div class="card" data-search="พ.อ.ต.หญิง อัมพิกา ปทุมหิรัญสกุล จ่ากวาง 099-2614162">
+        <span class="card-num">#14</span>
+        <span class="card-rank">พ.อ.ต.หญิง</span>
+        <div class="card-name">อัมพิกา ปทุมหิรัญสกุล</div>
+        <div class="card-nickname">จ่ากวาง</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0992614162" class="phone-link">099-2614162</a></div>
+      </div>
+
+      <div class="card" data-search="จ.อ. ภวิษณุ ศรีคำ จ่าราม 099-2010471">
+        <span class="card-num">#15</span>
+        <span class="card-rank">จ.อ.</span>
+        <div class="card-name">ภวิษณุ ศรีคำ</div>
+        <div class="card-nickname">จ่าราม</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0992010471" class="phone-link">099-2010471</a></div>
+      </div>
+
+      <div class="card" data-search="จ.อ. อนุฤทธิ์ กาขาว จ่าป้อง 086-1982342">
+        <span class="card-num">#16</span>
+        <span class="card-rank">จ.อ.</span>
+        <div class="card-name">อนุฤทธิ์ กาขาว</div>
+        <div class="card-nickname">จ่าป้อง</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0861982342" class="phone-link">086-1982342</a></div>
+      </div>
+
+      <div class="card" data-search="จ.อ. อนุพงศ์ พรมจักร จ่าแบงค์ 061-5294999">
+        <span class="card-num">#17</span>
+        <span class="card-rank">จ.อ.</span>
+        <div class="card-name">อนุพงศ์ พรมจักร</div>
+        <div class="card-nickname">จ่าแบงค์</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0615294999" class="phone-link">061-5294999</a></div>
+      </div>
+
+      <div class="card" data-search="จ.อ. ธวัชชัย รักศรี จ่าเบิร์ด 080-2121950">
+        <span class="card-num">#18</span>
+        <span class="card-rank">จ.อ.</span>
+        <div class="card-name">ธวัชชัย รักศรี</div>
+        <div class="card-nickname">จ่าเบิร์ด</div>
+        <div class="card-phone"><span class="phone-icon">📞</span><a href="tel:0802121950" class="phone-link">080-2121950</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="no-result" id="noResult">
+    <div class="icon">🔍</div>
+    <p>ไม่พบข้อมูลที่ค้นหา</p>
+    <p style="font-size:13px; margin-top:6px; color:#aaa;">ลองค้นหาด้วยชื่อ ยศ หรือชื่อเล่น</p>
+  </div>
+
+</div>
+
+<div class="footer">รพ.กองบิน ๔๑ · ทำเนียบบุคลากรทางการแพทย์ · กดโทรศัพท์เพื่อโทรออกได้ทันที</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearBtn');
+  const noResult = document.getElementById('noResult');
+
+  const sections = [
+    { id: 'section-doctors', gridId: 'grid-doctors', countId: 'count-doctors' },
+    { id: 'section-officer', gridId: 'grid-officer', countId: 'count-officer' },
+    { id: 'section-enlisted', gridId: 'grid-enlisted', countId: 'count-enlisted' },
+  ];
+
+  function highlight(text, query) {
+    if (!query) return text;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'), '<span class="hl">$1</span>');
+  }
+
+  function getTextNodes(el) {
+    return [
+      el.querySelector('.card-rank'),
+      el.querySelector('.card-name'),
+      el.querySelector('.card-nickname'),
+      el.querySelector('.phone-link'),
+    ];
+  }
+
+  function restoreText(card) {
+    const nodes = getTextNodes(card);
+    const originals = card._originals;
+    if (!originals) return;
+    nodes.forEach((n, i) => { if (n) n.innerHTML = originals[i] || ''; });
+  }
+
+  function saveOriginals(card) {
+    if (card._originals) return;
+    const nodes = getTextNodes(card);
+    card._originals = nodes.map(n => n ? n.innerHTML : '');
+  }
+
+  // Save all originals on load
+  document.querySelectorAll('.card').forEach(card => saveOriginals(card));
+
+  function doSearch() {
+    const q = searchInput.value.trim().toLowerCase();
+    clearBtn.classList.toggle('visible', q.length > 0);
+
+    let totalVisible = 0;
+
+    sections.forEach(({ id, gridId, countId }) => {
+      const section = document.getElementById(id);
+      const grid = document.getElementById(gridId);
+      const countEl = document.getElementById(countId);
+      const cards = grid.querySelectorAll('.card');
+      let sectionVisible = 0;
+
+      cards.forEach(card => {
+        restoreText(card);
+        const searchData = card.dataset.search.toLowerCase();
+        const match = !q || searchData.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) {
+          sectionVisible++;
+          if (q) {
+            const nodes = getTextNodes(card);
+            const originals = card._originals;
+            nodes.forEach((n, i) => {
+              if (n && originals[i]) n.innerHTML = highlight(originals[i], q);
+            });
+          }
+        }
+      });
+
+      section.classList.toggle('hidden', sectionVisible === 0);
+      countEl.textContent = sectionVisible + ' คน';
+      totalVisible += sectionVisible;
+    });
+
+    noResult.style.display = totalVisible === 0 ? 'block' : 'none';
+
+    // result count
+    const rc = document.getElementById('resultCount');
+    rc.textContent = q ? `${totalVisible} รายการ` : '';
+  }
+
+  searchInput.addEventListener('input', doSearch);
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    doSearch();
+    searchInput.focus();
+  });
+</script>
+</body>
+</html>
